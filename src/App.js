@@ -5,41 +5,26 @@ import Header from "./components/Header";
 import AddedFeatures from "./components/AddedFeatures";
 import AdditionalFeatures from "./components/AdditionalFeatures";
 import Total from "./components/Total";
-import { buyItem, removeFeature } from "../src/components/state/actionCreators";
+import * as actionCreators from "../src/components/state/actionCreators";
 
 export const App = props => {
-  console.log("props from app", props);
-
-  const removedFeature = item => {
-    console.log(" remove button was clicked", item);
-    removeFeature(item);
+  const removeFeature = item => {
+    actionCreators.removeFeature(item);
   };
 
-  const boughtItem = item => {
-    // e.preventDefault();
-    // dipsatch an action here to add an item
-    console.log("button was clicked", item);
-    buyItem(item);
+  const buyItem = item => {
+    actionCreators.buyItem(item);
   };
- 
+
   return (
     <div className="boxes">
       <div className="box">
-        <Header car={props.carBuilder.car} />
-        <AddedFeatures
-          car={props.carBuilder.car}
-          removedFeature={removedFeature}
-        />
+        <Header />
+        <AddedFeatures removeFeature={removeFeature} />
       </div>
       <div className="box">
-        <AdditionalFeatures
-          store={props.carBuilder.store}
-          boughtItem={boughtItem}
-        />
-        <Total
-          additionalPrice={props.carBuilder.additionalPrice}
-          car={props.carBuilder.car}
-        />
+        <AdditionalFeatures buyItem={buyItem} />
+        <Total />
       </div>
     </div>
   );
@@ -47,5 +32,5 @@ export const App = props => {
 
 export default connect(
   state => state,
-  { buyItem, removeFeature }
+  actionCreators
 )(App);

@@ -1,25 +1,15 @@
 import { BUY_ITEM, REMOVE_FEATURE } from "./actionTypes";
 
-export function removeFeature(item)  {
-  console.log("action creator removeFeature", item, REMOVE_FEATURE);
+export function removeFeature(item) {
   return {
     type: REMOVE_FEATURE,
-    payload: {
-      id: item.id,
-      name: item.name,
-      price: item.price,
-    }
+    payload: item
   };
-};
+}
 
-export function buyItem(item)  {
-  console.log("action creator", item, BUY_ITEM);
+export function buyItem(item) {
   return {
     type: BUY_ITEM,
-    payload: {
-      id: item.id,
-      name: item.name,
-      price: item.price,
-    }
+    payload: item
   };
-};
+}

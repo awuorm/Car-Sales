@@ -1,4 +1,4 @@
-import {BUY_ITEM,REMOVE_FEATURE}from "../state/actionTypes";
+import { BUY_ITEM, REMOVE_FEATURE } from "../state/actionTypes";
 
 const initialCarstate = {
   additionalPrice: 0,
@@ -7,7 +7,7 @@ const initialCarstate = {
     name: "2019 Ford Mustang",
     image:
       "https://cdn.motor1.com/images/mgl/0AN2V/s1/2019-ford-mustang-bullitt.jpg",
-    features: [ { id: 1, name: "V-6 engine", price: 1500 },]
+    features: []
   },
   store: [
     { id: 1, name: "V-6 engine", price: 1500 },
@@ -17,24 +17,32 @@ const initialCarstate = {
   ]
 };
 
- function carReducer(state = initialCarstate, action) {
+function carReducer(state = initialCarstate, action) {
   switch (action.type) {
     case BUY_ITEM:
-      return {...state,
-        car: {...state.car,
+      return {
+        ...state,
+        car: {
+          ...state.car,
           price: state.car.price + action.payload.price,
-        features: state.car.features.concat(action.payload),
-      },
-      store: {...state.store}};
+          features: state.car.features.concat(action.payload)
+        },
+        store: state.store.filter(feature => {
+          return feature.id !== action.payload.id;
+        })
+      };
     case REMOVE_FEATURE:
-      return {...state,
-        car: {...state.car,
-        features: state.car.features.filter(feature => {
-          return feature.id !== action.payload.id ;
-        }),
-        price: state.car.price - action.payload.price,
-      },
-     }
+      return {
+        ...state,
+        car: {
+          ...state.car,
+          features: state.car.features.filter(feature => {
+            return feature.id !== action.payload.id;
+          }),
+          price: state.car.price - action.payload.price
+        },
+        store: state.store.concat(action.payload)
+      };
     default:
       return state;
   }
