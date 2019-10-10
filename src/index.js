@@ -1,9 +1,29 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
+import React from "react";
+import ReactDOM from "react-dom";
+import {Provider} from "react-redux";
+import {combineReducers,createStore} from "redux";
 
-import 'bulma/css/bulma.css';
-import './styles.scss';
+import App from "./App";
+import * as reducers from "./components/state/reducer";
 
-const rootElement = document.getElementById('root');
-ReactDOM.render(<App />, rootElement);
+import "bulma/css/bulma.css";
+import "./styles.scss";
+
+const rootElement = document.getElementById("root");
+const monsterReducer = combineReducers({
+    carBuilder: reducers.carReducer,
+  });
+
+  const store = createStore(
+    monsterReducer,
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  );
+
+  
+
+ReactDOM.render(
+  <Provider store={store}>
+    <App/>
+  </Provider>,
+  rootElement
+);

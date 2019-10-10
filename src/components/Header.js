@@ -1,16 +1,16 @@
 import React from 'react';
-import {connect} from "react-redux";
- export const Header = props => {
+
+ const Header = props => {
   console.log("props from header",props)
   return (
     <>
       <figure className="image is-128x128">
-        <img src={props.carBuilder.car.image} alt={props.carBuilder.car.name} />
+        <img src={props.car.image} alt={props.car.name} />
       </figure>
-      <h2>{props.carBuilder.car.name}</h2>
-      <p>Amount: ${props.carBuilder.car.price}</p>
+      <h2>{props.car.name}</h2>
+      <p>Amount: ${props.car.price}</p>
     </>
   );
 };
 
-export default connect(state => state)(Header);
+export default Header;

@@ -1,6 +1,4 @@
-import React from "react";
-import { bindActionCreators } from "redux";
-import * as types from "../state/actionTypes";
+import {BUY_ITEM,REMOVE_FEATURE}from "../state/actionTypes";
 
 const initialCarstate = {
   additionalPrice: 0,
@@ -9,7 +7,7 @@ const initialCarstate = {
     name: "2019 Ford Mustang",
     image:
       "https://cdn.motor1.com/images/mgl/0AN2V/s1/2019-ford-mustang-bullitt.jpg",
-    features: []
+    features: [ { id: 1, name: "V-6 engine", price: 1500 },]
   },
   store: [
     { id: 1, name: "V-6 engine", price: 1500 },
@@ -21,22 +19,22 @@ const initialCarstate = {
 
 export function carReducer(state = initialCarstate, action) {
   switch (action.type) {
-    case types.BUY_ITEM:
-      return {
-        ...state,
-        additionalPrice: action.payload.price,
-        [state.car.price]: state.car.price + action.payload.price,
-        [state.car.features]: state.car.features.concat(action.payload),
-      };
-      case types.REMOVE_FEATURE:
-        return {
-          ...state,
-          additionalPrice: action.payload.price,
-          [state.car.price]: state.car.price - action.payload.price,
-          [state.car.features]: state.car.features.filter((feature) => {
-             return feature.id !== action.payload.id? feature : feature;
-          }),
-        };
+    case BUY_ITEM:
+      return {...state,
+        car: {...state.car,
+          price: state.car.price + action.payload.price,
+        features: state.car.features.concat(action.payload),
+      },
+      store: {...state.store}};
+    case REMOVE_FEATURE:
+      return {...state,
+        car: {...state.car,
+        features: state.car.features.filter(feature => {
+          return feature.id !== action.payload.id ;
+        }),
+        price: state.car.price - action.payload.price,
+      },
+     }
     default:
       return state;
   }
