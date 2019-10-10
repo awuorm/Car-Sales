@@ -17,7 +17,7 @@ const initialCarstate = {
   ]
 };
 
-export function carReducer(state = initialCarstate, action) {
+ function carReducer(state = initialCarstate, action) {
   switch (action.type) {
     case BUY_ITEM:
       return {...state,
@@ -39,3 +39,5 @@ export function carReducer(state = initialCarstate, action) {
       return state;
   }
 }
+
+export default carReducer;

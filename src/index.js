@@ -4,14 +4,14 @@ import {Provider} from "react-redux";
 import {combineReducers,createStore} from "redux";
 
 import App from "./App";
-import * as reducers from "./components/state/reducer";
+import carReducer from "./components/state/reducer";
 
 import "bulma/css/bulma.css";
 import "./styles.scss";
 
 const rootElement = document.getElementById("root");
 const monsterReducer = combineReducers({
-    carBuilder: reducers.carReducer,
+    carBuilder: carReducer,
   });
 
   const store = createStore(

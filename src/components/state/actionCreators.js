@@ -1,6 +1,7 @@
 import { BUY_ITEM, REMOVE_FEATURE } from "./actionTypes";
 
-export const removeFeature = item => {
+export function removeFeature(item)  {
+  console.log("action creator removeFeature", item, REMOVE_FEATURE);
   return {
     type: REMOVE_FEATURE,
     payload: {
@@ -11,7 +12,8 @@ export const removeFeature = item => {
   };
 };
 
-export const buyItem = item => {
+export function buyItem(item)  {
+  console.log("action creator", item, BUY_ITEM);
   return {
     type: BUY_ITEM,
     payload: {
